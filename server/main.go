@@ -39,6 +39,7 @@ func main() {
 
 	server := grpc.NewServer()
 	pb.RegisterUserServiceServer(server, &UserServiceServer{})
+	log.Println("RegisterUserServiceServer success!")
 
 	reflection.Register(server)
 	if err := server.Serve(lis); err != nil {
