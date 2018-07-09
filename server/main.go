@@ -12,10 +12,10 @@ import (
 )
 
 const (
-	redisAddress    = "user-db-grpc-redis:6379"
-	port            = ":8100"
-	success_message = "正常に登録されました"
-	failed_message  = "なんかだめだわ……"
+	redisAddress   = "user-db-grpc-redis:6379"
+	port           = ":8100"
+	successMessage = "正常に登録されました"
+	failedMessage  = "なんかだめだわ……"
 )
 
 var redisClient *redis.Client
@@ -39,9 +39,9 @@ func (s *UserServiceServer) AddUser(ctx context.Context, req *pb.AddUserRequest)
 	log.Printf("ADDUSER: Username: %s, UserID: %v\n", req.Username, req.UserID)
 	if err := redisClient.Set(string(req.UserID), req.Username, 0).Err(); err != nil {
 		log.Printf("Failed to add user: %v", err)
-		return &pb.Result{Success: false, Message: failed_message}, nil
+		return &pb.Result{Success: false, Message: failedMessage}, nil
 	}
-	return &pb.Result{Success: true, Message: success_message}, nil
+	return &pb.Result{Success: true, Message: successMessage}, nil
 }
 
 func main() {
