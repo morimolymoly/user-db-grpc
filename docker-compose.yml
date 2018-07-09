@@ -13,3 +13,5 @@ services:
     volumes:
       - ".:/go/src/github.com/morimolymoly/user-db-grpc"
     command: go run /go/src/github.com/morimolymoly/user-db-grpc/server/main.go
+    depends_on:
+      - redis
