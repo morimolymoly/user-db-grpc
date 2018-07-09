@@ -1,0 +1,15 @@
+version: '2'
+services:
+  redis:
+    image: redis:3.0.7
+    container_name: user-db-grpc-redis
+  server:
+    container_name: grpc_user_db_server
+    build:
+      context: .
+      dockerfile: DockerfileServer
+    ports:
+      - 8100:8100
+    volumes:
+      - ".:/Users/mizuho/go/src/github.com/morimolymoly/user-db-grpc"
+    command: go run /go/src/github.com/morimolymoly/user-db-grpc/server/main.go

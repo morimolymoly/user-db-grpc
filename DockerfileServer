@@ -1,0 +1,8 @@
+FROM golang:latest
+
+ADD . /go/src/github.com/morimolymoly/user-db-grpc
+
+WORKDIR /go/src/github.com/morimolymoly/user-db-grpc
+RUN go install github.com/morimolymoly/user-db-grpc/server
+EXPOSE 8100
+CMD ["/go/bin/server"]

@@ -1,0 +1,19 @@
+syntax = "proto3";
+
+package pb;
+
+service UserService {
+    rpc GetAllUser(GetAllUserRequest) returns (Users) {}
+}
+
+message User {
+    int64 userID = 1;
+    string username = 2;
+}
+
+message Users {
+    repeated User u = 1;
+}
+
+message GetAllUserRequest {
+}
