@@ -11,5 +11,5 @@ services:
     ports:
       - 8100:8100
     volumes:
-      - ".:/Users/mizuho/go/src/github.com/morimolymoly/user-db-grpc"
+      - ".:/go/src/github.com/morimolymoly/user-db-grpc"
     command: go run /go/src/github.com/morimolymoly/user-db-grpc/server/main.go

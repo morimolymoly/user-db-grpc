@@ -30,4 +30,11 @@ UserService@localhost:8100>
     }
   ]
 }
+UserService@localhost:8100> client.addUser({username: "もり", userID: 1}, pr)
+EventEmitter {}
+UserService@localhost:8100>
+{
+  "success": true,
+  "message": "正常に登録されました"
+}
 ```

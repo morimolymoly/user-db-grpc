@@ -4,6 +4,7 @@ package pb;
 
 service UserService {
     rpc GetAllUser(GetAllUserRequest) returns (Users) {}
+    rpc AddUser(AddUserRequest) returns (Result) {}
 }
 
 message User {
@@ -15,5 +16,15 @@ message Users {
     repeated User u = 1;
 }
 
+message Result {
+    bool success = 1;
+    string message = 2;
+}
+
 message GetAllUserRequest {
+}
+
+message AddUserRequest {
+    int64 userID = 1;
+    string username = 2;
 }

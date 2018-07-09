@@ -11,7 +11,9 @@ import (
 )
 
 const (
-	port = ":8100"
+	port            = ":8100"
+	success_message = "正常に登録されました"
+	// failed_message  = "なんかだめだわ……"
 )
 
 // UserServiceServer ... implement UserServiceServer
@@ -21,6 +23,12 @@ type UserServiceServer struct {
 // GetAllUser ... implement UserServiceServer
 func (s *UserServiceServer) GetAllUser(ctx context.Context, req *pb.GetAllUserRequest) (*pb.Users, error) {
 	return &pb.Users{U: []*pb.User{&pb.User{UserID: 0, Username: "もり"}}}, nil
+}
+
+// AddUser ... implement UserServiceServer
+func (s *UserServiceServer) AddUser(ctx context.Context, req *pb.AddUserRequest) (*pb.Result, error) {
+	log.Printf("ADDUSER: Username: %s, UserID: %v\n", req.Username, req.UserID)
+	return &pb.Result{Success: true, Message: success_message}, nil
 }
 
 func main() {
