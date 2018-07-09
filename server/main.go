@@ -15,7 +15,7 @@ const (
 	redisAddress    = "user-db-grpc-redis:6379"
 	port            = ":8100"
 	success_message = "正常に登録されました"
-	// failed_message  = "なんかだめだわ……"
+	failed_message  = "なんかだめだわ……"
 )
 
 var redisClient *redis.Client
@@ -26,12 +26,21 @@ type UserServiceServer struct {
 
 // GetAllUser ... implement UserServiceServer
 func (s *UserServiceServer) GetAllUser(ctx context.Context, req *pb.GetAllUserRequest) (*pb.Users, error) {
+	val, err := redisClient.Get("1g").Result()
+	if err != nil {
+		log.Printf("GetAllUser failed: %v", err)
+	}
+	log.Print(val)
 	return &pb.Users{U: []*pb.User{&pb.User{UserID: 0, Username: "もり"}}}, nil
 }
 
 // AddUser ... implement UserServiceServer
 func (s *UserServiceServer) AddUser(ctx context.Context, req *pb.AddUserRequest) (*pb.Result, error) {
 	log.Printf("ADDUSER: Username: %s, UserID: %v\n", req.Username, req.UserID)
+	if err := redisClient.Set(string(req.UserID), req.Username, 0).Err(); err != nil {
+		log.Printf("Failed to add user: %v", err)
+		return &pb.Result{Success: false, Message: failed_message}, nil
+	}
 	return &pb.Result{Success: true, Message: success_message}, nil
 }
 
